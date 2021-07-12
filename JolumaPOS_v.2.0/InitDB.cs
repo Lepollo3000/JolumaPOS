@@ -18,7 +18,7 @@ namespace JolumaPOS_v._2._0
                 identitycontext.Database.Migrate();
                 dbcontext.Database.Migrate();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -78,7 +78,7 @@ namespace JolumaPOS_v._2._0
 
                 CreateContactoTipoIfNotExists(dbcontext, 1, "Contacto");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

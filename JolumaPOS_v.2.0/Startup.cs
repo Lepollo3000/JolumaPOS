@@ -46,6 +46,7 @@ namespace JolumaPOS_v._2._0
             services.AddControllersWithViews();
         }
 
+        //NDcyNTg5QDMxMzkyZTMyMmUzME9VSXVsN2JreDdZUTE1WU90M3ZjMmJITjlvZENIUFRKeTlkYkdhSk9Fdms9
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -60,6 +61,8 @@ namespace JolumaPOS_v._2._0
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDcyNTg5QDMxMzkyZTMyMmUzME9VSXVsN2JreDdZUTE1WU90M3ZjMmJITjlvZENIUFRKeTlkYkdhSk9Fdms9");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
