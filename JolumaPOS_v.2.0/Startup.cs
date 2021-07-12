@@ -62,7 +62,7 @@ namespace JolumaPOS_v._2._0
                 app.UseHsts();
             }
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDcyNTg5QDMxMzkyZTMyMmUzME9VSXVsN2JreDdZUTE1WU90M3ZjMmJITjlvZENIUFRKeTlkYkdhSk9Fdms9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDcyNzUzQDMxMzkyZTMyMmUzMFo2V3F1VVdSMFA4ZEdTMklhbW9IK0crU3IyZ3U3V2xZbXVOb3ZPdXkyTEU9");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
