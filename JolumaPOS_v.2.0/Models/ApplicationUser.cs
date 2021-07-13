@@ -15,5 +15,7 @@ namespace JolumaPOS_v._2._0.Models
         public string LastName { get; set; }
         [Required]
         public bool Lockout { get; set; }
+        [Required]
+        public bool ForgotPassword { get; set; }
     }
 }

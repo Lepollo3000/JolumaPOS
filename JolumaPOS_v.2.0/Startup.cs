@@ -44,6 +44,13 @@ namespace JolumaPOS_v._2._0
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
         }
 
         //NDcyNTg5QDMxMzkyZTMyMmUzME9VSXVsN2JreDdZUTE1WU90M3ZjMmJITjlvZENIUFRKeTlkYkdhSk9Fdms9

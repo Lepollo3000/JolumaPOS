@@ -33,17 +33,21 @@ namespace JolumaPOS_v._2._0
 
             string strAdminEmail = "usuario.admin@gmail.com";
             string strAdminPassword = "Pa55w.rd";
+            string strAdminFirstName = "Usuario";
+            string strAdminLastName = "Aministrador";
 
             string strCajeroEmail = "usuario.cajero@gmail.com";
             string strCajeroPassword = "Pa55w.rd";
+            string strCajeroFirstName = "Usuario";
+            string strCajeroLastName = "Promedio";
 
             if (!(tryCreateRoleIfNotExist(roleManager, strAdminRole) && tryCreateRoleIfNotExist(roleManager, strCajeroRole)))
             {
                 return false;
             }
 
-            tryCreateUserIfNotExistsAndAddRole(userManager, strAdminEmail, strAdminPassword, strAdminRole);
-            tryCreateUserIfNotExistsAndAddRole(userManager, strCajeroEmail, strCajeroPassword, strCajeroRole);
+            tryCreateUserIfNotExistsAndAddRole(userManager, strAdminEmail, strAdminPassword, strAdminRole, strAdminFirstName, strAdminLastName);
+            tryCreateUserIfNotExistsAndAddRole(userManager, strCajeroEmail, strCajeroPassword, strCajeroRole, strCajeroFirstName, strCajeroLastName);
 
             return true;
         }
@@ -99,7 +103,8 @@ namespace JolumaPOS_v._2._0
                     oRole = new IdentityRole();
                     oRole.Name = strRole;
                     oRole.Id = Guid.NewGuid().ToString();
-                    IdentityResult roleResult = roleManager.CreateAsync(oRole).Result;
+                    
+                    roleManager.CreateAsync(oRole).Wait();
                 }
             }
             catch (Exception)
@@ -110,7 +115,7 @@ namespace JolumaPOS_v._2._0
             return true;
         }
 
-        private static bool tryCreateUserIfNotExistsAndAddRole(UserManager<ApplicationUser> userManager, string strEmail, string strPassword, string strRole)
+        private static bool tryCreateUserIfNotExistsAndAddRole(UserManager<ApplicationUser> userManager, string strEmail, string strPassword, string strRole, string strFirstName, string strLastName)
         {
             try
             {
@@ -119,13 +124,17 @@ namespace JolumaPOS_v._2._0
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
                 if (oUser == null)
                 {
-                    oUser = new ApplicationUser();
-                    oUser.UserName = strEmail;
-                    oUser.Email = strEmail;
-                    oUser.EmailConfirmed = true;
-                    oUser.Id = Guid.NewGuid().ToString();
+                    oUser = new ApplicationUser() {
+                        Id = Guid.NewGuid().ToString(),
+                        UserName = strEmail,
+                        Email = strEmail,
+                        EmailConfirmed = true,
+                        FirstName = strFirstName,
+                        LastName = strLastName,
+                        Lockout = false
+                    };
 
-                    IdentityResult result = userManager.CreateAsync(oUser, strPassword).Result;
+                    userManager.CreateAsync(oUser, strPassword).Wait();
                 }
 
                 if (oUser != null)
