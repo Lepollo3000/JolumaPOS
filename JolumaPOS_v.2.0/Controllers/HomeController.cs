@@ -22,6 +22,9 @@ namespace JolumaPOS_v._2._0.Controllers
 
         public IActionResult Index()
         {
+            if (User.IsInRole("Administrador"))
+                return RedirectToAction("Index", "Admin");
+
             return View();
         }
 

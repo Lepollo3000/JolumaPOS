@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JolumaPOS_v._2._0.Migrations
 {
     [DbContext(typeof(JolumaPOSDevContext))]
-    [Migration("20210708034003_Init")]
+    [Migration("20210715153548_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder
                 .HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.Caja", b =>
@@ -48,8 +48,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.Categorium", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -144,8 +146,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.ContactoTipo", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -353,8 +357,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.InventarioStatus", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -480,8 +486,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.TipoMonedum", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -496,8 +504,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.TipoPago", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -512,8 +522,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.UnidadMedidum", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -746,8 +758,10 @@ namespace JolumaPOS_v._2._0.Migrations
             modelBuilder.Entity("JolumaPOS_v._2._0.Models.VentaStatus", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
                         .IsRequired()

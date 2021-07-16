@@ -25,7 +25,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "Categoria",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     padre = table.Column<int>(type: "int", nullable: true),
                     descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     status = table.Column<bool>(type: "bit", nullable: false)
@@ -59,7 +60,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "ContactoTipo",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -71,7 +73,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "InventarioStatus",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -104,7 +107,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "TipoMoneda",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -116,7 +120,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "TipoPago",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -128,7 +133,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "UnidadMedida",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -140,7 +146,8 @@ namespace JolumaPOS_v._2._0.Migrations
                 name: "VentaStatus",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -464,26 +471,6 @@ namespace JolumaPOS_v._2._0.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.Sql(@"
-            create view vContactoProveedor as
-            SELECT      dbo.Contacto.id, dbo.Contacto.proveedor, dbo.Contacto.tipoContacto, dbo.Contacto.nombre, dbo.Contacto.email, dbo.Contacto.telefono, dbo.Contacto.status, dbo.ContactoTipo.descripcion, dbo.Proveedor.razonSocial, 
-                         dbo.Proveedor.RFC
-            FROM        dbo.Contacto INNER JOIN
-                         dbo.ContactoTipo ON dbo.Contacto.tipoContacto = dbo.ContactoTipo.id INNER JOIN
-                         dbo.Proveedor ON dbo.Contacto.proveedor = dbo.Proveedor.id
-            ");
-
-            migrationBuilder.Sql(@"
-            create view vProductoInventario as
-            SELECT      dbo.Producto.id, dbo.Producto.codigoBarras, dbo.Producto.nombre, dbo.Producto.descripcionProducto, dbo.Producto.categoria, dbo.Producto.status, dbo.Producto.unidadMedida, dbo.Producto.requiereInventario, 
-                         dbo.Categoria.descripcion AS nombreCategoria, dbo.UnidadMedida.descripcion AS nombreUnidadMedida, dbo.Inventario.caja, dbo.Inventario.precioCompra, dbo.Inventario.precioVenta, dbo.Inventario.tipoMonedaCompra, 
-                         dbo.Inventario.tipoMonedaVenta, dbo.Inventario.puntoReorden, dbo.Inventario.cantidadStock
-            FROM        dbo.Producto INNER JOIN
-                         dbo.Categoria ON dbo.Producto.categoria = dbo.Categoria.id INNER JOIN
-                         dbo.UnidadMedida ON dbo.Producto.unidadMedida = dbo.UnidadMedida.id INNER JOIN
-                         dbo.Inventario ON dbo.Producto.id = dbo.Inventario.producto
-            ");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categoria_padre",

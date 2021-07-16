@@ -40,14 +40,21 @@ namespace JolumaPOS_v._2._0.Models
         public virtual DbSet<VentaStatus> VentaStatuses { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=JolumaPOSDev;Trusted_Connection=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<Categorium>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.PadreNavigation)
                     .WithMany(p => p.InversePadreNavigation)
                     .HasForeignKey(d => d.Padre)
@@ -67,11 +74,6 @@ namespace JolumaPOS_v._2._0.Models
                     .HasForeignKey(d => d.TipoContacto)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Contacto_ContactoTipo");
-            });
-
-            modelBuilder.Entity<ContactoTipo>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Inventario>(entity =>
@@ -170,11 +172,6 @@ namespace JolumaPOS_v._2._0.Models
                     .HasConstraintName("FK_InventarioSalida_InventarioStatus");
             });
 
-            modelBuilder.Entity<InventarioStatus>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasOne(d => d.CategoriaNavigation)
@@ -188,21 +185,6 @@ namespace JolumaPOS_v._2._0.Models
                     .HasForeignKey(d => d.UnidadMedida)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Producto_UnidadMedida");
-            });
-
-            modelBuilder.Entity<TipoMonedum>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<TipoPago>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<UnidadMedidum>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<VContactoProveedor>(entity =>
@@ -243,11 +225,6 @@ namespace JolumaPOS_v._2._0.Models
                     .HasForeignKey(d => d.Venta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VentaPago_Venta");
-            });
-
-            modelBuilder.Entity<VentaStatus>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Ventum>(entity =>

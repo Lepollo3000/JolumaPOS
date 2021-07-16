@@ -156,7 +156,6 @@ namespace JolumaPOS_v._2._0
             {
                 InventarioStatus o = new InventarioStatus()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
@@ -177,7 +176,6 @@ namespace JolumaPOS_v._2._0
             {
                 VentaStatus o = new VentaStatus()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
@@ -198,7 +196,6 @@ namespace JolumaPOS_v._2._0
             {
                 TipoMonedum o = new TipoMonedum()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
@@ -219,7 +216,6 @@ namespace JolumaPOS_v._2._0
             {
                 TipoPago o = new TipoPago()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
@@ -240,7 +236,6 @@ namespace JolumaPOS_v._2._0
             {
                 UnidadMedidum o = new UnidadMedidum()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
@@ -261,7 +256,6 @@ namespace JolumaPOS_v._2._0
             {
                 Categorium o = new Categorium()
                 {
-                    Id = Id,
                     Padre = padre,
                     Descripcion = descripcion,
                     Status = true
@@ -284,7 +278,6 @@ namespace JolumaPOS_v._2._0
             {
                 ContactoTipo o = new ContactoTipo()
                 {
-                    Id = Id,
                     Descripcion = descripcion
                 };
 
