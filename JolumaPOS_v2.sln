@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JolumaPOS_v2.Server", "JolumaPOS_v2\Server\JolumaPOS_v2.Server.csproj", "{8776301F-2BAB-4021-88E3-2ADE8382AFD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JolumaPOS_v2.Server", "JolumaPOS_v2\Server\JolumaPOS_v2.Server.csproj", "{8776301F-2BAB-4021-88E3-2ADE8382AFD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JolumaPOS_v2.Client", "JolumaPOS_v2\Client\JolumaPOS_v2.Client.csproj", "{2A86D66D-B314-45B1-8BB5-915165076187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JolumaPOS_v2.Client", "JolumaPOS_v2\Client\JolumaPOS_v2.Client.csproj", "{2A86D66D-B314-45B1-8BB5-915165076187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JolumaPOS_v2.Shared", "JolumaPOS_v2\Shared\JolumaPOS_v2.Shared.csproj", "{E1926F7C-9988-445D-8D72-3AB21F15FF3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JolumaPOS_v2.Shared", "JolumaPOS_v2\Shared\JolumaPOS_v2.Shared.csproj", "{E1926F7C-9988-445D-8D72-3AB21F15FF3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
