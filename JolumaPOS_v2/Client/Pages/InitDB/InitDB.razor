@@ -1,0 +1,43 @@
+﻿@page "/InitDB"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using JolumaPOS_v2.Shared
+@inject IHttpClientFactory ClientFactory
+
+@attribute [AllowAnonymous]
+
+<h3>Inicialización de Base de Datos</h3>
+
+@{
+    if (string.IsNullOrEmpty(strRespuesta))
+    {
+        <span>Cargando...</span>
+    }
+    else
+    {
+            <span>@strRespuesta</span>
+    }
+}
+
+@code {
+    private string strRespuesta = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("WebAPI.NoAuthenticationClient");
+            strRespuesta = await client.GetStringAsync("api/InitDB");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            strRespuesta = exception.Message.ToString();
+
+            exception.Redirect();
+        }
+        catch (Exception ex)
+        {
+            strRespuesta = ex.Message.ToString();
+        }
+    }
+}
