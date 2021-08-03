@@ -15,7 +15,7 @@
     }
     else
     {
-            <span>@strRespuesta</span>
+        <span>@strRespuesta</span>
     }
 }
 
@@ -27,17 +27,15 @@
         try
         {
             var client = ClientFactory.CreateClient("WebAPI.NoAuthenticationClient");
-            strRespuesta = await client.GetStringAsync("api/InitDB");
+            var response = await client.GetAsync("api/InitDB");
+
+            strRespuesta = await response.Content.ReadAsStringAsync();
         }
         catch (AccessTokenNotAvailableException exception)
         {
             strRespuesta = exception.Message.ToString();
 
             exception.Redirect();
-        }
-        catch (Exception ex)
-        {
-            strRespuesta = ex.Message.ToString();
         }
     }
 }

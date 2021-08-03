@@ -30,36 +30,35 @@ namespace JolumaPOS_v2.Server.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
             //INTENTA MIGRAR LA INFORMACION A LA DB
             if (!InitDB.tryToMigrate(_dbcontext, _identitycontext))
             {
-                Response.StatusCode = 500;
                 var error = "Error interno del servidor al migrar la BD. Contacte a su administrador.";
-                return error;
+
+                return StatusCode(500, error);
             }
 
             //INTENTA CREAR LOS USUARIOS ADMIN Y CAJERO
             if (!InitDB.tryCreateDefaultUsersAndRoles(_userManager, _roleManager))
             {
-                Response.StatusCode = 500;
                 var error = "Error interno del servidor al crear usuarios predefinidos. Contacte a su administrador.";
-                return error;
+
+                return StatusCode(500, error);
             }
 
             //INTENTA CREAR LOS USUARIOS ADMIN Y CAJERO
             if (!InitDB.trySeedDefaultData(_dbcontext))
             {
-                Response.StatusCode = 500;
                 var error = "Error interno del servidor al crear datos predefinidos. Contacte a su administrador.";
 
-                return error;
+                return StatusCode(500, error);
             }
 
             string mensaje = "Base de datos actualizada correctamente.";
 
-            return mensaje;
+            return StatusCode(200, mensaje);
         }
     }
 }
