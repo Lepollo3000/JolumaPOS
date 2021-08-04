@@ -27,7 +27,7 @@ namespace JolumaPOS_v2.Server.Areas.Identity.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPost(string returnUrl)
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
@@ -37,7 +37,7 @@ namespace JolumaPOS_v2.Server.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToPage();
+                return LocalRedirect("~/");
             }
         }
     }

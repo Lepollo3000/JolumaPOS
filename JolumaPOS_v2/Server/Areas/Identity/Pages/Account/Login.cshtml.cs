@@ -60,7 +60,7 @@ namespace JolumaPOS_v2.Server.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -77,7 +77,7 @@ namespace JolumaPOS_v2.Server.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl)
         {
             returnUrl ??= Url.Content("~/");
 
