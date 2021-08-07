@@ -1,18 +1,52 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<Layout Sider="true">
+    <LayoutSider>
+        <LayoutSiderContent>
+            <Bar Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark" Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Hide" @bind-Visible="siderVisible">
+                <BarBrand>
+                    <BarItem>
+                        <BarLink To="/" TextAlignment="TextAlignment.Justified">
+                            Joluma POS
+                        </BarLink>
+                    </BarItem>
+                </BarBrand>
 
-    <div class="main">
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+                <NavMenu />
+            </Bar>
+        </LayoutSiderContent>
+    </LayoutSider>
 
-        <div class="content px-4">
+    <Layout>
+        <LayoutHeader Fixed="true">
+            <Bar Style="height: 65px;" Breakpoint="Breakpoint.Desktop" Background="Background.Light" ThemeContrast="ThemeContrast.Light">
+                <BarMenu>
+                    <BarStart>
+                        <BarToggler Clicked="@ToggleSidebar" Style="display:block" />
+                    </BarStart>
+
+                    <BarEnd>
+                        <BarItem>
+                            <LoginDisplay />
+                        </BarItem>
+                    </BarEnd>
+                </BarMenu>
+            </Bar>
+        </LayoutHeader>
+
+        <LayoutContent Padding="Padding.Is5">
             @Body
-        </div>
-    </div>
-</div>
+        </LayoutContent>
+    </Layout>
+</Layout>
+
+@code{
+    private bool siderVisible = true;
+    private bool uiElementsVisible = true;
+
+    private void ToggleSidebar()
+    {
+        siderVisible = !siderVisible;
+        StateHasChanged();
+    }
+}

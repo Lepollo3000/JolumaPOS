@@ -3,22 +3,62 @@
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
+@inject HttpClient Http
 
 <AuthorizeView>
     <Authorized>
-        <a href="authentication/profile">Hello, @context.User.Identity.Name!</a>
-        <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+        <BarDropdown>
+            <BarDropdownToggle>
+                @GetUserFirstName()
+                <Icon Name="IconName.User" />
+            </BarDropdownToggle>
+            <BarDropdownMenu Style="padding: 15px; min-width:50px;" RightAligned="true">
+                <BarDropdownItem To="authentication/profile">
+                    Perfil de Usuario
+                </BarDropdownItem>
+                <BarDropdownItem @onclick="BeginSignOut">
+                    Cerrar Sesión
+                </BarDropdownItem>
+            </BarDropdownMenu>
+        </BarDropdown>
+        @*
+            <a href="authentication/profile">Hello, @context.User.Identity.Name!</a>
+            <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+        *@
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/register">Register</a>
-        <a href="authentication/login">Log in</a>
+        <BarDropdown>
+            <BarDropdownToggle>
+                <Icon Name="IconName.User" />
+            </BarDropdownToggle>
+            <BarDropdownMenu Style="padding: 15px; min-width:50px;" RightAligned="true">
+                <BarDropdownItem To="authentication/register">
+                    Registrarse
+                </BarDropdownItem>
+                <BarDropdownItem To="authentication/login">
+                    Iniciar Sesión
+                </BarDropdownItem>
+            </BarDropdownMenu>
+        </BarDropdown>
+        @*
+            <a href="authentication/register">Register</a>
+            <a href="authentication/login">Log in</a>
+        *@
     </NotAuthorized>
 </AuthorizeView>
 
 @code{
+    protected string nombreUsuario = "usuario";
+
     private async Task BeginSignOut(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
+    }
+
+    private string GetUserFirstName()
+    {
+        //PENDIENTE
+        return nombreUsuario;
     }
 }
