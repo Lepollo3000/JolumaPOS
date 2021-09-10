@@ -25,6 +25,9 @@ namespace JolumaPOS_v2.Shared.Models
         [Column("empleado")]
         [StringLength(450)]
         public string Empleado { get; set; }
+        [Required]
+        [Column("nombreEmpleado")]
+        public string NombreEmpleado { get; set; }
         [Column("caja")]
         public int Caja { get; set; }
         [Column("fecha", TypeName = "datetime")]

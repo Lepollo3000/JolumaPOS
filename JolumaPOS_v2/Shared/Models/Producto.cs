@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 namespace JolumaPOS_v2.Shared.Models
 {
     [Table("Producto")]
-    [Index(nameof(Categoria), Name = "IX_Producto_CodigoBarras", IsUnique = true)]
     public partial class Producto
     {
         public Producto()
@@ -44,7 +43,7 @@ namespace JolumaPOS_v2.Shared.Models
         public bool RequiereInventario { get; set; }
 
         [ForeignKey(nameof(Categoria))]
-        [InverseProperty(nameof(Categorium.Producto))]
+        [InverseProperty(nameof(Categorium.Productos))]
         public virtual Categorium CategoriaNavigation { get; set; }
         [ForeignKey(nameof(UnidadMedida))]
         [InverseProperty(nameof(UnidadMedidum.Productos))]

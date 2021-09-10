@@ -34,12 +34,15 @@ namespace JolumaPOS_v2.Server.Models
         public virtual DbSet<TipoMonedum> TipoMoneda { get; set; }
         public virtual DbSet<TipoPago> TipoPagos { get; set; }
         public virtual DbSet<UnidadMedidum> UnidadMedida { get; set; }
-        public virtual DbSet<VContactoProveedor> VContactoProveedors { get; set; }
+        public virtual DbSet<VContacto> VContactos { get; set; }
         public virtual DbSet<VProductoInventario> VProductoInventarios { get; set; }
         public virtual DbSet<VentaDetalle> VentaDetalles { get; set; }
         public virtual DbSet<VentaPago> VentaPagos { get; set; }
         public virtual DbSet<VentaStatus> VentaStatuses { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
+        public virtual DbSet<Vproducto> Vproductos { get; set; }
+        public virtual DbSet<VventaDetalleProducto> VventaDetalleProductos { get; set; }
+        public virtual DbSet<Vventum> Vventa { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -176,8 +179,8 @@ namespace JolumaPOS_v2.Server.Models
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasOne(d => d.CategoriaNavigation)
-                    .WithOne(p => p.Producto)
-                    .HasForeignKey<Producto>(d => d.Categoria)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Categoria)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Producto_Categoria1");
 
@@ -188,9 +191,9 @@ namespace JolumaPOS_v2.Server.Models
                     .HasConstraintName("FK_Producto_UnidadMedida");
             });
 
-            modelBuilder.Entity<VContactoProveedor>(entity =>
+            modelBuilder.Entity<VContacto>(entity =>
             {
-                entity.ToView("vContactoProveedor");
+                entity.ToView("vContacto");
             });
 
             modelBuilder.Entity<VProductoInventario>(entity =>
@@ -204,7 +207,7 @@ namespace JolumaPOS_v2.Server.Models
                     .WithMany(p => p.VentaDetalles)
                     .HasForeignKey(d => d.Producto)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_VentaDetalle_Producto");
+                    .HasConstraintName("FK_VentaDetalle_Producto1");
 
                 entity.HasOne(d => d.VentaNavigation)
                     .WithMany(p => p.VentaDetalles)
@@ -247,6 +250,21 @@ namespace JolumaPOS_v2.Server.Models
                     .HasForeignKey(d => d.Status)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Venta_VentaStatus");
+            });
+
+            modelBuilder.Entity<Vproducto>(entity =>
+            {
+                entity.ToView("VProducto");
+            });
+
+            modelBuilder.Entity<VventaDetalleProducto>(entity =>
+            {
+                entity.ToView("VVentaDetalleProducto");
+            });
+
+            modelBuilder.Entity<Vventum>(entity =>
+            {
+                entity.ToView("VVenta");
             });
 
             OnModelCreatingPartial(modelBuilder);

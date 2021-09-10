@@ -7,7 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.5.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Syncfusion.Blazor.Data" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="19.2.0.57" />
   </ItemGroup>
 
   <ItemGroup>

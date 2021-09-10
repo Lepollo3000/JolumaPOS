@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -24,6 +25,10 @@ namespace JolumaPOS_v2.Client
                 .AddBlazorise(options => { options.ChangeTextOnKeyPress = true; })
                 .AddBootstrapProviders()
                 .AddFontAwesomeIcons();
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDg4MTk3QDMxMzkyZTMyMmUzMEJhZlJDUXQ0c3Y1VFRpS3NnUVRMQzR5SXlaWmZiNHdGMFUzSnhQeFNiV2M9");
+
+            builder.Services.AddSyncfusionBlazor();
 
             builder.RootComponents.Add<App>("#app");
 

@@ -1,5 +1,8 @@
 using JolumaPOS_v2.Server.Data;
 using JolumaPOS_v2.Server.Models;
+using JolumaPOS_v2.Shared.Models;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OData.Edm;
 using System.Linq;
 
 namespace JolumaPOS_v2.Server
@@ -27,6 +31,8 @@ namespace JolumaPOS_v2.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Scaffold-DbContext "Server=.\SQLEXPRESS;Database=SGenerales;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/dbModels -DataAnnotations -Force
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -56,6 +62,8 @@ namespace JolumaPOS_v2.Server
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+
+            services.AddOData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,10 +94,24 @@ namespace JolumaPOS_v2.Server
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.EnableDependencyInjection();
+                endpoints.Select().Filter().OrderBy().Count().MaxTop(50).Expand();
+                endpoints.MapODataRoute("odata", "api", GetEdmModel());
+
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
+        }
+
+        private static IEdmModel GetEdmModel()
+        {
+            var builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Producto>("Productos");
+            builder.EntitySet<Categorium>("Categorias");
+            builder.EntitySet<UnidadMedidum>("UnidadesMedida");
+            builder.EntitySet<Proveedor>("Proveedores");
+            return builder.GetEdmModel();
         }
     }
 }

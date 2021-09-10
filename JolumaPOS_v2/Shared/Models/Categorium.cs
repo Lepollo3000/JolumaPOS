@@ -13,6 +13,7 @@ namespace JolumaPOS_v2.Shared.Models
         public Categorium()
         {
             InversePadreNavigation = new HashSet<Categorium>();
+            Productos = new HashSet<Producto>();
         }
 
         [Key]
@@ -30,9 +31,9 @@ namespace JolumaPOS_v2.Shared.Models
         [ForeignKey(nameof(Padre))]
         [InverseProperty(nameof(Categorium.InversePadreNavigation))]
         public virtual Categorium PadreNavigation { get; set; }
-        [InverseProperty("CategoriaNavigation")]
-        public virtual Producto Producto { get; set; }
         [InverseProperty(nameof(Categorium.PadreNavigation))]
         public virtual ICollection<Categorium> InversePadreNavigation { get; set; }
+        [InverseProperty(nameof(Producto.CategoriaNavigation))]
+        public virtual ICollection<Producto> Productos { get; set; }
     }
 }

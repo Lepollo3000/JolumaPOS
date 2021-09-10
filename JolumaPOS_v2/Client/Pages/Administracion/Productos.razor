@@ -1,9 +1,29 @@
 ﻿@page "/Productos"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize]
 
 <h3>Productos</h3>
 
+<SfGrid ID="Grid" TValue="Producto" Toolbar="@toolbar" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <SfDataManager Url="api/Productos" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Producto.CodigoBarras) HeaderText="Código de Barras" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Producto.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
+        <GridColumn Field=@nameof(Producto.Nombre) HeaderText="Nombre" Width="20"></GridColumn>
+        <GridForeignColumn TValue="Categorium" Field=@nameof(Producto.Categoria) HeaderText="Categoría" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">
+            <SfDataManager Url="api/Categorias" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+        </GridForeignColumn>
+        <GridColumn Field=@nameof(Producto.DescripcionProducto) HeaderText="Descripción" Width="20"></GridColumn>
+        <GridForeignColumn TValue="UnidadMedidum" Field=@nameof(Producto.UnidadMedida) HeaderText="Unidad de Medida" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">
+            <SfDataManager Url="api/UnidadesMedida" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+        </GridForeignColumn>
+        <GridColumn Field=@nameof(Producto.RequiereInventario) HeaderText="Requiere Inventario" Width="20" DefaultValue="true"></GridColumn>
+        <GridColumn Field=@nameof(Producto.Status) HeaderText="Habilitado" Width="20" DefaultValue="true"></GridColumn>
+    </GridColumns>
+</SfGrid>
 
-
-@code {
-
+@code{
+    private List<string> toolbar = new List<string>() { "Add", "Edit", "Delete" };
 }

@@ -1,0 +1,26 @@
+﻿@page "/Proveedores"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize]
+
+<h3>Proveedores</h3>
+
+<SfGrid ID="Grid" TValue="Proveedor" Toolbar="@toolbar" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <SfDataManager Url="api/Proveedores" Adaptor="Adaptors.ODataV4Adaptor" Offline="false"></SfDataManager>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Proveedor.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.RazonSocial) HeaderText="Razon Social" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Rfc) HeaderText="RFC" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.NumDireccion) HeaderText="Número Externo" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.ColDireccion) HeaderText="Colonia" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Pais) HeaderText="Pais" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Estado) HeaderText="Estado" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Municipio) HeaderText="Municipio" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Status) HeaderText="Habilitado" Width="20" DefaultValue="true"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    private List<string> toolbar = new List<string>() { "Add", "Edit", "Delete", "Update", "Save" };
+}
