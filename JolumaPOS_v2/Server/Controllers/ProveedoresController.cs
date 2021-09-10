@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JolumaPOS_v2.Server.Models;
 using JolumaPOS_v2.Shared.Models;
-using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData;
 using JolumaPOS_v2.Shared.ViewModels;
 
 namespace JolumaPOS_v2.Server.Controllers

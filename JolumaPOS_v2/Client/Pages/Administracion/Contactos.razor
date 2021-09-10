@@ -1,0 +1,26 @@
+﻿@page "/Contactos"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize]
+
+<SfGrid ID="Grid" TValue="Contacto" Toolbar="@toolbar" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <SfDataManager Url="api/Contactos" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Contacto.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
+        <GridForeignColumn TValue="Proveedor" Field=@nameof(Contacto.Proveedor) HeaderText="Proveedor" ForeignKeyField="Id" ForeignKeyValue="RazonSocial" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">
+            <SfDataManager Url="api/Proveedores" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+        </GridForeignColumn>
+        <GridForeignColumn TValue="ContactoTipo" Field=@nameof(Contacto.TipoContacto) HeaderText="Tipo de Contacto" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">
+            <SfDataManager Url="api/ContactoTipos" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+        </GridForeignColumn>
+        <GridColumn Field=@nameof(Contacto.Nombre) HeaderText="Nombre" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Contacto.Email) HeaderText="Email" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Contacto.Telefono) HeaderText="Teléfono" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Contacto.Status) HeaderText="Estatus" Width="20" DefaultValue="true"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    private List<string> toolbar = new List<string>() { "Add", "Edit", "Delete" };
+}
