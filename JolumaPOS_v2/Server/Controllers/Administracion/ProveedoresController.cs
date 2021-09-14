@@ -12,7 +12,7 @@ using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNet.OData;
 using JolumaPOS_v2.Shared.ViewModels;
 
-namespace JolumaPOS_v2.Server.Controllers
+namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
     [Authorize]
     [ODataRoutePrefix("Proveedores")]
@@ -59,7 +59,11 @@ namespace JolumaPOS_v2.Server.Controllers
         {
             if (proveedor != null)
             {
-                if (ProveedorExists(id))
+                if (id != proveedor.Id)
+                {
+                    return BadRequest();
+                }
+                else if (ProveedorExists(id))
                 {
                     var model = _context.Proveedors.Where(m => m.Id == id).FirstOrDefault();
 
@@ -93,10 +97,6 @@ namespace JolumaPOS_v2.Server.Controllers
                 {
                     return NotFound();
                 }
-            }
-            if (id != proveedor.Id)
-            {
-                return BadRequest();
             }
 
             return NoContent();

@@ -113,6 +113,7 @@ namespace JolumaPOS_v2.Server
             builder.EntitySet<Proveedor>("Proveedores");
             builder.EntitySet<Contacto>("Contactos");
             builder.EntitySet<ContactoTipo>("ContactoTipos");
+            builder.EntitySet<Caja>("Cajas");
             return builder.GetEdmModel();
         }
     }

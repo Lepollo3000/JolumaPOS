@@ -12,7 +12,7 @@
         <GridColumn Field=@nameof(Categorium.Id) HeaderText="No. Categoría" IsPrimaryKey="true" IsIdentity="true" Visible="false" Width="20"></GridColumn>
         <GridColumn Field=@nameof(Categorium.Descripcion) HeaderText="Nombre" Width="20"></GridColumn>
         <GridForeignColumn TValue="Categorium" Field=@nameof(Categorium.Padre) HeaderText="Categoría Padre" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" EditType="EditType.DropDownEdit">
-            <SfDataManager Url="api/Categorias" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+            <SfDataManager Url="api/Categorias?mostrarFiltrado=true&mostrarNulo=true" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
         </GridForeignColumn>
         <GridColumn Field=@nameof(Categorium.Status) HeaderText="Estatus" Width="20" DefaultValue="true"></GridColumn>
     </GridColumns>

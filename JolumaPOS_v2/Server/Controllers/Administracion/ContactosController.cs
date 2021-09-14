@@ -10,8 +10,9 @@ using JolumaPOS_v2.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNet.OData;
+using JolumaPOS_v2.Shared.ViewModels;
 
-namespace JolumaPOS_v2.Server.Controllers
+namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
     [Authorize]
     [ODataRoutePrefix("Contactos")] 
@@ -54,16 +55,20 @@ namespace JolumaPOS_v2.Server.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{id}")]
         [ODataRoute("({id})")]
-        public async Task<IActionResult> PatchContacto(int id, [FromBody] Contacto contacto)
+        public async Task<IActionResult> PatchContacto(int id, [FromBody] ContactoViewModel contacto)
         {
             if (contacto != null)
             {
-                if (ContactoExists(id))
+                if (id != contacto.Id)
+                {
+                    return BadRequest();
+                }
+                else if (ContactoExists(id))
                 {
                     var model = _context.Contactos.Where(m => m.Id == id).FirstOrDefault();
 
-                    model.Proveedor = contacto.Proveedor != 0 ? model.Proveedor : contacto.Proveedor;
-                    model.TipoContacto = contacto.TipoContacto != 0 ? model.TipoContacto : contacto.TipoContacto;
+                    model.Proveedor = contacto.Proveedor != 0 ? contacto.Proveedor : model.Proveedor;
+                    model.TipoContacto = contacto.TipoContacto != 0 ? contacto.TipoContacto : model.TipoContacto;
                     model.Nombre = string.IsNullOrEmpty(contacto.Nombre) ? model.Nombre : contacto.Nombre;
                     model.Email = string.IsNullOrEmpty(contacto.Email) ? model.Email : contacto.Email;
                     model.Telefono = string.IsNullOrEmpty(contacto.Telefono) ? model.Telefono : contacto.Telefono;
@@ -89,10 +94,6 @@ namespace JolumaPOS_v2.Server.Controllers
                 {
                     return NotFound();
                 }
-            }
-            if (id != contacto.Id)
-            {
-                return BadRequest();
             }
 
             return NoContent();

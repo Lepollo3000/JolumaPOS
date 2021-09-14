@@ -2,6 +2,8 @@
 @inject IJSRuntime JSRuntime
 @attribute [Authorize]
 
+<h3>Contactos</h3>
+
 <SfGrid ID="Grid" TValue="Contacto" Toolbar="@toolbar" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <SfDataManager Url="api/Contactos" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
     <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>

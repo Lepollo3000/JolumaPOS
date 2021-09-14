@@ -13,7 +13,7 @@
         <GridColumn Field=@nameof(Producto.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
         <GridColumn Field=@nameof(Producto.Nombre) HeaderText="Nombre" Width="20"></GridColumn>
         <GridForeignColumn TValue="Categorium" Field=@nameof(Producto.Categoria) HeaderText="Categoría" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">
-            <SfDataManager Url="api/Categorias" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+            <SfDataManager Url="api/Categorias?mostrarFiltrado=true" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
         </GridForeignColumn>
         <GridColumn Field=@nameof(Producto.DescripcionProducto) HeaderText="Descripción" Width="20"></GridColumn>
         <GridForeignColumn TValue="UnidadMedidum" Field=@nameof(Producto.UnidadMedida) HeaderText="Unidad de Medida" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})" EditType="EditType.DropDownEdit">

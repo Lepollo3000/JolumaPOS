@@ -12,7 +12,7 @@ using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using JolumaPOS_v2.Shared.ViewModels;
 
-namespace JolumaPOS_v2.Server.Controllers
+namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
     [Authorize]
     [ODataRoutePrefix("Categorias")]
@@ -31,9 +31,24 @@ namespace JolumaPOS_v2.Server.Controllers
         [HttpGet]
         [ODataRoute]
         [EnableQuery]
-        public async Task<ActionResult<IEnumerable<Categorium>>> GetCategoria()
+        public async Task<ActionResult<IEnumerable<Categorium>>> GetCategoria(bool mostrarFiltrado = false, bool mostrarNulo = false)
         {
             var model = await _context.Categoria.ToListAsync();
+
+            if (mostrarFiltrado)
+                model = model.Where(m => m.Status == true).ToList();
+            if(mostrarNulo)
+            {
+                var categoriaNula = new Categorium()
+                {
+                    Id = 0,
+                    Descripcion = "Ninguna",
+                    Status = true
+                };
+
+                model.Insert(0, categoriaNula);
+            }
+
             return model;
         }
 
@@ -60,16 +75,23 @@ namespace JolumaPOS_v2.Server.Controllers
         {
             if (categorium != null)
             {
-                if (CategoriumExists(id))
+                if (id != categorium.Id)
+                {
+                    return BadRequest();
+                }
+                else if (CategoriumExists(id))
                 {
                     var model = _context.Categoria.Where(c => c.Id == id).FirstOrDefault();
 
-                    model.Padre = ((model.Padre == null && categorium == null) )
+                    categorium.Padre = categorium.Padre == 0 ? null : categorium.Padre;
+
+                    model.Padre = (model.Padre == null && categorium.Padre != null)
+                        || (model.Padre != null && categorium.Padre == null)
                         ? categorium.Padre : model.Padre;
                     model.Descripcion = categorium.Descripcion != null ? categorium.Descripcion : model.Descripcion;
                     model.Status = categorium.Status != model.Status ? categorium.Status : model.Status;
 
-                    _context.Entry(categorium).State = EntityState.Modified;
+                    _context.Entry(model).State = EntityState.Modified;
 
                     try
                     {
@@ -90,10 +112,6 @@ namespace JolumaPOS_v2.Server.Controllers
                     return NotFound();
                 }
             }
-            if (id != categorium.Id)
-            {
-                return BadRequest();
-            }
 
             return NoContent();
         }
@@ -103,6 +121,8 @@ namespace JolumaPOS_v2.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Categorium>> PostCategorium(Categorium categorium)
         {
+            categorium.Padre = categorium.Padre != 0 ? categorium.Padre : null;
+
             _context.Categoria.Add(categorium);
             await _context.SaveChangesAsync();
 

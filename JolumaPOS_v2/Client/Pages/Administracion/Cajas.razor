@@ -1,0 +1,20 @@
+﻿@page "/Cajas"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize]
+
+<h3>Cajas</h3>
+
+<SfGrid ID="Grid" TValue="Caja" Toolbar="@toolbar" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <SfDataManager Url="api/Cajas" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Caja.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
+        <GridColumn Field=@nameof(Caja.Descripcion) HeaderText="Nombre" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(Caja.Estatus) HeaderText="Estatus" Width="20" DefaultValue="true"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    private List<string> toolbar = new List<string>() { "Add", "Edit", "Delete" };
+}

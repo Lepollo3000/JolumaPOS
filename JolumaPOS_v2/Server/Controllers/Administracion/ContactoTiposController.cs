@@ -8,60 +8,60 @@ using Microsoft.EntityFrameworkCore;
 using JolumaPOS_v2.Server.Models;
 using JolumaPOS_v2.Shared.Models;
 using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.OData.Routing;
 
-namespace JolumaPOS_v2.Server.Controllers
+namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
     [Authorize]
-    [ODataRoutePrefix("UnidadesMedida")]
+    [ODataRoutePrefix("ContactoTipos")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UnidadesMedidaController : ODataController
+    public class ContactoTiposController : ODataController
     {
         private readonly JolumaPOSDevContext _context;
 
-        public UnidadesMedidaController(JolumaPOSDevContext context)
+        public ContactoTiposController(JolumaPOSDevContext context)
         {
             _context = context;
         }
 
-        // GET: api/UnidadesMedida
+        // GET: api/ContactoTipos
         [HttpGet]
         [ODataRoute]
         [EnableQuery]
-        public async Task<ActionResult<IEnumerable<UnidadMedidum>>> GetUnidadMedida()
+        public async Task<ActionResult<IEnumerable<ContactoTipo>>> GetContactoTipos()
         {
-            return await _context.UnidadMedida.ToListAsync();
+            return await _context.ContactoTipos.ToListAsync();
         }
-
-        // GET: api/UnidadesMedida/5
+        /*
+        // GET: api/ContactoTipos/5
         [HttpGet("{id}")]
         [ODataRoute("({id})")]
-        public async Task<ActionResult<UnidadMedidum>> GetUnidadMedidum(int id)
+        public async Task<ActionResult<ContactoTipo>> GetContactoTipo(int id)
         {
-            var unidadMedidum = await _context.UnidadMedida.FindAsync(id);
+            var contactoTipo = await _context.ContactoTipos.FindAsync(id);
 
-            if (unidadMedidum == null)
+            if (contactoTipo == null)
             {
                 return NotFound();
             }
 
-            return unidadMedidum;
+            return contactoTipo;
         }
 
-        // PUT: api/UnidadesMedida/5
+        // PUT: api/ContactoTipos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [ODataRoute("({id})")]
-        public async Task<IActionResult> PutUnidadMedidum(int id, UnidadMedidum unidadMedidum)
+        public async Task<IActionResult> PatchContactoTipo(int id, ContactoTipo contactoTipo)
         {
-            if (id != unidadMedidum.Id)
+            if (id != contactoTipo.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(unidadMedidum).State = EntityState.Modified;
+            _context.Entry(contactoTipo).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +69,7 @@ namespace JolumaPOS_v2.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UnidadMedidumExists(id))
+                if (!ContactoTipoExists(id))
                 {
                     return NotFound();
                 }
@@ -82,37 +82,38 @@ namespace JolumaPOS_v2.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/UnidadesMedida
+        // POST: api/ContactoTipos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UnidadMedidum>> PostUnidadMedidum(UnidadMedidum unidadMedidum)
+        public async Task<ActionResult<ContactoTipo>> PostContactoTipo(ContactoTipo contactoTipo)
         {
-            _context.UnidadMedida.Add(unidadMedidum);
+            _context.ContactoTipos.Add(contactoTipo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUnidadMedidum", new { id = unidadMedidum.Id }, unidadMedidum);
+            return CreatedAtAction("GetContactoTipo", new { id = contactoTipo.Id }, contactoTipo);
         }
 
-        // DELETE: api/UnidadesMedida/5
+        // DELETE: api/ContactoTipos/5
         [HttpDelete("{id}")]
         [ODataRoute("({id})")]
-        public async Task<IActionResult> DeleteUnidadMedidum(int id)
+        public async Task<IActionResult> DeleteContactoTipo(int id)
         {
-            var unidadMedidum = await _context.UnidadMedida.FindAsync(id);
-            if (unidadMedidum == null)
+            var contactoTipo = await _context.ContactoTipos.FindAsync(id);
+            if (contactoTipo == null)
             {
                 return NotFound();
             }
 
-            _context.UnidadMedida.Remove(unidadMedidum);
+            _context.ContactoTipos.Remove(contactoTipo);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UnidadMedidumExists(int id)
+        private bool ContactoTipoExists(int id)
         {
-            return _context.UnidadMedida.Any(e => e.Id == id);
+            return _context.ContactoTipos.Any(e => e.Id == id);
         }
+        */
     }
 }
