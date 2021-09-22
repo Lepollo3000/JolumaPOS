@@ -1,6 +1,5 @@
 ﻿@page "/Cajas"
-@inject IJSRuntime JSRuntime
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Administrador")]
 
 <h3>Cajas</h3>
 
@@ -11,7 +10,7 @@
     <GridColumns>
         <GridColumn Field=@nameof(Caja.Id) IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
         <GridColumn Field=@nameof(Caja.Descripcion) HeaderText="Nombre" Width="20"></GridColumn>
-        <GridColumn Field=@nameof(Caja.Estatus) HeaderText="Estatus" Width="20" DefaultValue="true"></GridColumn>
+        <GridColumn Field=@nameof(Caja.Estatus) HeaderText="Habilitado" Width="20" DefaultValue="true" DisplayAsCheckBox="true"></GridColumn>
     </GridColumns>
 </SfGrid>
 

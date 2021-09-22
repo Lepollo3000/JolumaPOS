@@ -1,6 +1,5 @@
 ﻿@page "/Productos"
-@inject IJSRuntime JSRuntime
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Administrador")]
 
 <h3>Productos</h3>
 
@@ -20,7 +19,7 @@
             <SfDataManager Url="api/UnidadesMedida" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
         </GridForeignColumn>
         <GridColumn Field=@nameof(Producto.RequiereInventario) HeaderText="Requiere Inventario" Width="20" DefaultValue="true"></GridColumn>
-        <GridColumn Field=@nameof(Producto.Status) HeaderText="Habilitado" Width="20" DefaultValue="true"></GridColumn>
+        <GridColumn Field=@nameof(Producto.Status) HeaderText="Habilitado" Width="20" DefaultValue="true" DisplayAsCheckBox="true"></GridColumn>
     </GridColumns>
 </SfGrid>
 

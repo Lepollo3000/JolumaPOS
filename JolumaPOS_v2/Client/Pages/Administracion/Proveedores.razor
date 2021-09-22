@@ -1,6 +1,5 @@
 ﻿@page "/Proveedores"
-@inject IJSRuntime JSRuntime
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Administrador")]
 
 <h3>Proveedores</h3>
 
@@ -18,7 +17,7 @@
         <GridColumn Field=@nameof(Proveedor.Pais) HeaderText="Pais" Width="20"></GridColumn>
         <GridColumn Field=@nameof(Proveedor.Estado) HeaderText="Estado" Width="20"></GridColumn>
         <GridColumn Field=@nameof(Proveedor.Municipio) HeaderText="Municipio" Width="20"></GridColumn>
-        <GridColumn Field=@nameof(Proveedor.Status) HeaderText="Habilitado" Width="20" DefaultValue="true"></GridColumn>
+        <GridColumn Field=@nameof(Proveedor.Status) HeaderText="Habilitado" Width="20" DefaultValue="true" DisplayAsCheckBox="true"></GridColumn>
     </GridColumns>
 </SfGrid>
 

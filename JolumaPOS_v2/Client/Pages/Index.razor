@@ -5,3 +5,13 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<AuthorizeView Roles="Administrador">
+    <p>Admin detectado.</p>
+</AuthorizeView>
+<AuthorizeView Roles="Gerente">
+    <p>Gerente detectado.</p>
+</AuthorizeView>
+<AuthorizeView Roles="Cajero">
+    <p>Cajero detectado.</p>
+</AuthorizeView>

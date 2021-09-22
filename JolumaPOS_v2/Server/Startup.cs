@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OData.Edm;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace JolumaPOS_v2.Server
@@ -48,7 +49,12 @@ namespace JolumaPOS_v2.Server
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
+                {
+                    opt.IdentityResources["openid"].UserClaims.Add("role");
+                    opt.ApiResources.Single().UserClaims.Add("role");
+                });
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

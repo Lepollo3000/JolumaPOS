@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     [ODataRoutePrefix("Cajas")]
     [Route("api/[controller]")]
     [ApiController]

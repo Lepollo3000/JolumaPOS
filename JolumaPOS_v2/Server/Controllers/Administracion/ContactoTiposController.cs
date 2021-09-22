@@ -13,7 +13,7 @@ using Microsoft.AspNet.OData.Routing;
 
 namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     [ODataRoutePrefix("ContactoTipos")]
     [Route("api/[controller]")]
     [ApiController]

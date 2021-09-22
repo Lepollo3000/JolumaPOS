@@ -14,7 +14,7 @@ using JolumaPOS_v2.Shared.ViewModels;
 
 namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     [ODataRoutePrefix("Categorias")]
     [Route("api/[controller]")]
     [ApiController]
