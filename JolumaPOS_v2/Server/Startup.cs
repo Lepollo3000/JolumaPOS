@@ -70,6 +70,8 @@ namespace JolumaPOS_v2.Server
             });
 
             services.AddOData();
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,7 +3,9 @@
 <Layout Sider="true">
     <LayoutSider>
         <LayoutSiderContent>
-            <Bar Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark" Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Hide" @bind-Visible="siderVisible">
+            <Bar Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.None" ThemeContrast="ThemeContrast.Dark" Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Small">
+                <BarToggler />
+
                 <BarBrand>
                     <BarItem>
                         <BarLink To="/" TextAlignment="TextAlignment.Justified">
@@ -19,12 +21,8 @@
 
     <Layout>
         <LayoutHeader Fixed="true">
-            <Bar Style="height: 65px;" Breakpoint="Breakpoint.Desktop" Background="Background.Light" ThemeContrast="ThemeContrast.Light">
+            <Bar Style="height: 65px;" Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.Mobile" Background="Background.Light" ThemeContrast="ThemeContrast.Light">
                 <BarMenu>
-                    <BarStart>
-                        <BarToggler Clicked="@ToggleSidebar" Style="display:block" />
-                    </BarStart>
-
                     <BarEnd>
                         <BarItem>
                             <LoginDisplay />
@@ -43,10 +41,4 @@
 @code{
     private bool siderVisible = true;
     private bool uiElementsVisible = true;
-
-    private void ToggleSidebar()
-    {
-        siderVisible = !siderVisible;
-        StateHasChanged();
-    }
 }

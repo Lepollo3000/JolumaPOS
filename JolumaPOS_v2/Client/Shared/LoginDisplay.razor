@@ -4,61 +4,82 @@
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 @inject HttpClient Http
+@inject AuthenticationStateProvider _authProvider
 
 <AuthorizeView>
     <Authorized>
         <BarDropdown>
             <BarDropdownToggle>
-                @GetUserFirstName()
-                <Icon Name="IconName.User" />
+                Opciones de usuario <Icon Name="@("fa-user")" />
             </BarDropdownToggle>
-            <BarDropdownMenu Style="padding: 15px; min-width:50px;" RightAligned="true">
+
+            <BarDropdownMenu Style="padding: 15px; min-width: 300px;" RightAligned="true">
                 <BarDropdownItem To="authentication/profile">
-                    Perfil de Usuario
+                    <Row>
+                        <Column>
+                            Perfil de Usuario
+                        </Column>
+
+                        <Column ColumnSize="ColumnSize.Is3">
+                            <Icon Name="@("fa-user-circle")" />
+                        </Column>
+                    </Row>
                 </BarDropdownItem>
+
                 <BarDropdownItem @onclick="BeginSignOut">
-                    Cerrar Sesión
+                    <Row>
+                        <Column>
+                            Cerrar Sesión
+                        </Column>
+
+                        <Column ColumnSize="ColumnSize.Is3">
+                            <Icon Name="@("fa-door-open")" />
+                        </Column>
+                    </Row>
                 </BarDropdownItem>
             </BarDropdownMenu>
         </BarDropdown>
-        @*
-            <a href="authentication/profile">Hello, @context.User.Identity.Name!</a>
-            <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
-        *@
     </Authorized>
+
     <NotAuthorized>
         <BarDropdown>
             <BarDropdownToggle>
-                <Icon Name="IconName.User" />
+                Iniciar sesión <Icon Name="@("fa-user")" />
             </BarDropdownToggle>
-            <BarDropdownMenu Style="padding: 15px; min-width:50px;" RightAligned="true">
+
+            <BarDropdownMenu Style="padding: 15px; min-width: 300px;" RightAligned="true">
                 <BarDropdownItem To="authentication/register">
-                    Registrarse
+                    <Row>
+                        <Column>
+                            Registrarse
+                        </Column>
+
+                        <Column ColumnSize="ColumnSize.Is3">
+                            <Icon Name="@("fa-user-plus")" />
+                        </Column>
+                    </Row>
                 </BarDropdownItem>
+
                 <BarDropdownItem To="authentication/login">
-                    Iniciar Sesión
+                    <Row>
+                        <Column>
+                            Iniciar Sesión
+                        </Column>
+
+                        <Column ColumnSize="ColumnSize.Is3">
+                            <Icon Name="@("fa-user-shield")" />
+                        </Column>
+                    </Row>
                 </BarDropdownItem>
             </BarDropdownMenu>
         </BarDropdown>
-        @*
-            <a href="authentication/register">Register</a>
-            <a href="authentication/login">Log in</a>
-        *@
     </NotAuthorized>
 </AuthorizeView>
 
 @code{
-    protected string nombreUsuario = "usuario";
-
     private async Task BeginSignOut(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
-    }
-
-    private string GetUserFirstName()
-    {
-        //PENDIENTE
-        return nombreUsuario;
     }
 }
