@@ -1,0 +1,63 @@
+﻿@page "/Inventario"
+
+@attribute [Authorize(Roles = "Gerente")]
+
+@inject HttpClient Http
+
+<h3 class="mx-auto">Seleccione una caja</h3>
+
+@{
+    if (cajas != null)
+    {
+        <Row Margin="Margin.IsAuto.OnX">
+            @{
+                foreach (var caja in cajas)
+                {
+
+                    <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+                        <Card Class="border-info">
+                            <CardBody Class="text-white bg-info">
+                                <Row>
+                                    <Column Class="text-center" Margin="Margin.IsAuto.OnY">
+                                        <h4><b>@(caja.Descripcion)</b></h4>
+                                    </Column>
+                                </Row>
+                            </CardBody>
+
+                            <Blazorise.Link To="@("/Inventario/Caja/" + caja.Id)">
+                                <CardFooter Class="text-info">
+                                    <Row>
+                                        <Column Class="text-left" ColumnSize="ColumnSize.Is8">
+                                            Revisar Caja
+                                        </Column>
+
+                                        <Column Class="text-right" Margin="Margin.IsAuto.OnY">
+                                            <Icon Name="@("fa-angle-double-right")" />
+                                        </Column>
+                                    </Row>
+                                </CardFooter>
+                            </Blazorise.Link>
+                        </Card>
+                    </Column>
+                }
+            }
+        </Row>
+    }
+}
+
+@code {
+    private IEnumerable<Caja> cajas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/ListaCajas");
+            cajas = await response.Content.ReadFromJsonAsync<IEnumerable<Caja>>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

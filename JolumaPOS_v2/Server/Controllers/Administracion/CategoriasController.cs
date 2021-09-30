@@ -37,7 +37,7 @@ namespace JolumaPOS_v2.Server.Controllers.Administracion
 
             if (mostrarFiltrado)
                 model = model.Where(m => m.Status == true).ToList();
-            if(mostrarNulo)
+            if (mostrarNulo)
             {
                 var categoriaNula = new Categorium()
                 {

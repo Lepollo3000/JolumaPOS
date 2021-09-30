@@ -92,6 +92,8 @@ namespace JolumaPOS_v2.Server
                 CreateVentaStatusIfNotExists(dbcontext, 2, "Pago en Proceso");
                 CreateVentaStatusIfNotExists(dbcontext, 3, "Pago Concretado");
                 CreateVentaStatusIfNotExists(dbcontext, 4, "Cancelada");
+
+                CreateCajaIfNotExists(dbcontext, 1, "Caja 1");
             }
             catch (Exception)
             {
@@ -169,7 +171,8 @@ namespace JolumaPOS_v2.Server
                 Categorium o = new Categorium()
                 {
                     Descripcion = descripcion,
-                    Padre = padre
+                    Padre = padre,
+                    Status = true
                 };
 
                 dbcontext.Categoria.Add(o);
@@ -293,6 +296,27 @@ namespace JolumaPOS_v2.Server
                 };
 
                 dbcontext.VentaStatuses.Add(o);
+                dbcontext.SaveChanges();
+
+                return o;
+            }
+
+            return null;
+        }
+
+        private static Caja CreateCajaIfNotExists(JolumaPOSDevContext dbcontext, int Id, string descripcion)
+        {
+            var obj = dbcontext.Cajas.Where(x => x.Id == Id);
+
+            if (!obj.Any())
+            {
+                Caja o = new Caja()
+                {
+                    Descripcion = descripcion,
+                    Estatus = true
+                };
+
+                dbcontext.Cajas.Add(o);
                 dbcontext.SaveChanges();
 
                 return o;

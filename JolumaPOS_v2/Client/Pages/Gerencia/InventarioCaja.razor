@@ -1,0 +1,37 @@
+﻿@page "/Inventario/Caja/{CajaId:int}"
+
+@attribute [Authorize(Roles = "Gerente")]
+
+@inject HttpClient Http
+
+<h3>InventarioCaja</h3>
+
+@{
+    if (caja != null)
+    {
+
+    }
+}
+
+@code {
+    [Parameter]
+    public int CajaId { get; set; }
+
+    private Caja caja;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (CajaId != 0)
+            {
+                var response = await Http.GetAsync("api/ListaCajas/" + CajaId);
+                caja = await response.Content.ReadFromJsonAsync<Caja>();
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

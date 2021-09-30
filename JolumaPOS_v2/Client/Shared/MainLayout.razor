@@ -14,7 +14,48 @@
                     </BarItem>
                 </BarBrand>
 
-                <NavMenu />
+                <BarMenu>
+                    <BarStart>
+                        <BarItem>
+                            <BarLink To="">
+                                <Div Style="float: left;">Inicio</Div>
+                                <BarIcon IconName="@("fa-home")" Style="float: right; margin-right: 20px;" />
+                            </BarLink>
+                        </BarItem>
+
+                        <AuthorizeView Roles="Administrador">
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        Administración
+                                        <BarIcon IconName="@("fa-users")" Style="float: right; margin-right: 20px;" />
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <NavMenuAdministrador />
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </AuthorizeView>
+
+                        <AuthorizeView Roles="Gerente">
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        Gerencia
+                                        <BarIcon IconName="@("fa-user-tie")" Style="float: right; margin-right: 20px;" />
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <NavMenuGerente />
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </AuthorizeView>
+
+                        <AuthorizeView Roles="Cajero">
+                            <NavMenu />
+                        </AuthorizeView>
+                    </BarStart>
+                </BarMenu>
             </Bar>
         </LayoutSiderContent>
     </LayoutSider>

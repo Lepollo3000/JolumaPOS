@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JolumaPOS_v2.Server.Controllers.Administracion
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador, Gerente")]
     [ODataRoutePrefix("Cajas")]
     [Route("api/[controller]")]
     [ApiController]
@@ -32,7 +32,9 @@ namespace JolumaPOS_v2.Server.Controllers.Administracion
         [EnableQuery]
         public async Task<ActionResult<IEnumerable<Caja>>> GetCajas()
         {
-            return await _context.Cajas.ToListAsync();
+            var model = await _context.Cajas.ToListAsync();
+
+            return model;
         }
 
         // GET: api/Cajas/5
