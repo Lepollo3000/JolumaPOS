@@ -1,0 +1,108 @@
+﻿@page "/Inventario/{Opcion:int}"
+
+@attribute [Authorize(Roles = "Gerente")]
+@inject HttpClient Http
+
+@{
+    switch (Opcion)
+    {
+        case 1:
+            valido = true;
+            urlDestino = "/Inventario/Caja/";
+            break;
+        case 2:
+            valido = true;
+            urlDestino = "/Inventario/Entradas/";
+            break;
+        case 3:
+            valido = true;
+            urlDestino = "/Inventario/Salidas/";
+            break;
+        default:
+            valido = false;
+            break;
+    }
+
+    if (valido)
+    {
+        if (cajas != null)
+        {
+            <h3 class="text-center">Seleccione una caja</h3>
+
+            <Row Class="justify-content-center">
+                @{
+                    foreach (var caja in cajas)
+                    {
+                        <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <Card Class="border-info">
+                                <CardBody Class="text-white bg-info">
+                                    <Row>
+                                        <Column Class="text-center" Margin="Margin.IsAuto.OnY">
+                                            <h4><b>@(caja.Descripcion)</b></h4>
+                                        </Column>
+                                    </Row>
+                                </CardBody>
+
+                                <Blazorise.Link To="@(urlDestino + caja.Id)">
+                                    <CardFooter Class="text-info">
+                                        <Row>
+                                            <Column Class="text-left" ColumnSize="ColumnSize.Is8">
+                                                Revisar Caja
+                                            </Column>
+
+                                            <Column Class="text-right" Margin="Margin.IsAuto.OnY">
+                                                <Icon Name="@("fa-angle-double-right")" />
+                                            </Column>
+                                        </Row>
+                                    </CardFooter>
+                                </Blazorise.Link>
+                            </Card>
+                        </Column>
+                    }
+                }
+            </Row>
+        }
+        else
+        {
+            <CircleFade Center="true" />
+        }
+    }
+    else
+    {
+        <Div Class="align-content-center">
+            <Alert Color="Color.Danger" Visible="true" Class="text-justify">
+                <AlertMessage>Debe accesar con una acción válida</AlertMessage>
+            </Alert>
+
+            <Button Color="Color.Primary" To="/" Type="ButtonType.Link">
+                Volver a Inicio
+            </Button>
+        </Div>
+
+    }
+
+}
+
+@code {
+    [Parameter]
+    public int Opcion { get; set; }
+
+    private IEnumerable<Caja> cajas;
+
+    private string urlDestino;
+
+    private bool valido;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/ListaCajas");
+            cajas = await response.Content.ReadFromJsonAsync<IEnumerable<Caja>>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

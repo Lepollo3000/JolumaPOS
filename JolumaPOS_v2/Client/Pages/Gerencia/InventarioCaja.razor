@@ -1,15 +1,39 @@
 ﻿@page "/Inventario/Caja/{CajaId:int}"
 
 @attribute [Authorize(Roles = "Gerente")]
-
 @inject HttpClient Http
-
-<h3>InventarioCaja</h3>
 
 @{
     if (caja != null)
     {
+        <h3>Inventario de @(caja.Descripcion)</h3>
 
+        <SfGrid ID="Grid" TValue="Inventario" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+            <SfDataManager Url="@("api/Inventario?idCaja=" + caja.Id)" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
+            <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+            <GridColumns>
+                <GridForeignColumn TValue="Caja" Field=@nameof(Inventario.Caja) HeaderText="Caja" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})">
+                    <SfDataManager Url="api/Cajas" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+                </GridForeignColumn>
+                <GridForeignColumn TValue="Producto" Field=@nameof(Inventario.Producto) HeaderText="Producto" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})">
+                    <SfDataManager Url="api/Productos" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+                </GridForeignColumn>
+                <GridColumn Field=@nameof(Inventario.PrecioCompra) HeaderText="Precio de Compra" Width="20"></GridColumn>
+                <GridForeignColumn TValue="TipoMonedum" Field=@nameof(Inventario.TipoMonedaCompra) HeaderText="Moneda de Compra" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})">
+                    <SfDataManager Url="api/TiposMoneda" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+                </GridForeignColumn>
+                <GridColumn Field=@nameof(Inventario.PrecioVenta) HeaderText="Precio de Venta" Width="20"></GridColumn>
+                <GridForeignColumn TValue="TipoMonedum" Field=@nameof(Inventario.TipoMonedaVenta) HeaderText="Moneda de Compra" ForeignKeyField="Id" ForeignKeyValue="Descripcion" Width="20" ValidationRules="@(new ValidationRules{ Required=true})">
+                    <SfDataManager Url="api/TiposMoneda" Adaptor="Adaptors.ODataV4Adaptor" Offline=true></SfDataManager>
+                </GridForeignColumn>
+            </GridColumns>
+        </SfGrid>
+
+
+    }
+    else
+    {
+        <CircleFade Center="true" />
     }
 }
 
